@@ -99,12 +99,10 @@
 		E9AC68572158F3280043A498 /* ColorSwitch */ = {
 			isa = PBXGroup;
 			children = (
+				E9AC6895215902E90043A498 /* Assets */,
+				E9AC6894215902920043A498 /* Scenes */,
+				E9AC68932159027B0043A498 /* ViewControllers */,
 				E9AC68582158F3280043A498 /* AppDelegate.swift */,
-				E9AC685E2158F3280043A498 /* GameScene.swift */,
-				E9AC68602158F3280043A498 /* GameViewController.swift */,
-				E9AC68622158F3280043A498 /* Main.storyboard */,
-				E9AC68652158F3290043A498 /* Assets.xcassets */,
-				E9AC68672158F3290043A498 /* LaunchScreen.storyboard */,
 				E9AC686A2158F3290043A498 /* Info.plist */,
 			);
 			path = ColorSwitch;
@@ -126,6 +124,32 @@
 				E9AC68802158F32A0043A498 /* Info.plist */,
 			);
 			path = ColorSwitchUITests;
+			sourceTree = "<group>";
+		};
+		E9AC68932159027B0043A498 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E9AC68602158F3280043A498 /* GameViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E9AC6894215902920043A498 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				E9AC685E2158F3280043A498 /* GameScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		E9AC6895215902E90043A498 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E9AC68622158F3280043A498 /* Main.storyboard */,
+				E9AC68652158F3290043A498 /* Assets.xcassets */,
+				E9AC68672158F3290043A498 /* LaunchScreen.storyboard */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
