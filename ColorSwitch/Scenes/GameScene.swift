@@ -62,7 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func layoutScene() {
-        backgroundColor = UIColor(red: 44/255, green: 62/255, blue: 80/255, alpha: 1.0)
+        backgroundColor = LayoutProperties.backgroundColor
         drawScoreLabel()
         drawColorSwitchControl()
         spawnBall()

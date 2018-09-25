@@ -19,3 +19,7 @@ enum ZPositions {
     static let ball: CGFloat = 1
     static let colorSwitch: CGFloat = 2
 }
+
+enum LayoutProperties {
+    static let backgroundColor: UIColor = UIColor(red: 44/255, green: 62/255, blue: 80/255, alpha: 1.0)
+}
