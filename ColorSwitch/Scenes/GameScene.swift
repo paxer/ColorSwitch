@@ -114,7 +114,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
-        print("Game Over")
+        UserDefaults.standard.set(score, forKey: "RecentScore")
+        if score > UserDefaults.standard.integer(forKey: "HighScore") {
+            UserDefaults.standard.set(score, forKey: "HighScore")
+        }
+        
+        let menuScene = MenuScene(size: view!.bounds.size)
+        view!.presentScene(menuScene)
     }
     
     func updateScoreLabel() {
