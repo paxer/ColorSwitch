@@ -25,6 +25,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var colorSwitch: SKSpriteNode!
     var switchState = SwitchState.red
     var currentColorIndex: Int?
+    let scoreLabel = SKLabelNode(text: "0")
+    var score = 0
     
     override func didMove(to view: SKView) {
         setupPhysics()
@@ -41,7 +43,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contactMask == PhysicsCategories.ballCategory | PhysicsCategories.switchCategory {
             if let ball = contact.bodyA.node?.name == "Ball" ? contact.bodyA.node as? SKSpriteNode : contact.bodyB.node as? SKSpriteNode {
                 if currentColorIndex == switchState.rawValue {
-                    print("Correct!")
+                    score += 1
+                    updateScoreLabel()
                     ball.run(SKAction.fadeOut(withDuration: 0.25)) {
                         ball.removeFromParent()
                         self.spawnBall()
@@ -60,14 +63,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func layoutScene() {
         backgroundColor = UIColor(red: 44/255, green: 62/255, blue: 80/255, alpha: 1.0)
+        drawScoreLabel()
         drawColorSwitchControl()
         spawnBall()
+    }
+    
+    func drawScoreLabel() {
+        scoreLabel.fontName = "AvenirNext-Bold"
+        scoreLabel.fontSize = 60.0
+        scoreLabel.fontColor = UIColor.white
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY)
+        scoreLabel.zPosition = ZPositions.label
+        addChild(scoreLabel)
     }
     
     func drawColorSwitchControl() {
         colorSwitch = SKSpriteNode(imageNamed: "ColorCircle")
         colorSwitch.size = CGSize(width: frame.size.width / 3, height: frame.size.width / 3)
         colorSwitch.position = CGPoint(x: frame.midX, y: frame.minY + colorSwitch.size.height)
+        colorSwitch.zPosition = ZPositions.colorSwitch
         colorSwitch.physicsBody = SKPhysicsBody(circleOfRadius: colorSwitch.size.width / 2)
         colorSwitch.physicsBody?.categoryBitMask = PhysicsCategories.switchCategory
         colorSwitch.physicsBody?.isDynamic = false
@@ -81,6 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.colorBlendFactor = 1
         ball.name = "Ball"
         ball.position = CGPoint(x: frame.midX, y: frame.maxY)
+        ball.zPosition = ZPositions.ball
         ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
         ball.physicsBody?.categoryBitMask = PhysicsCategories.ballCategory
         ball.physicsBody?.contactTestBitMask = PhysicsCategories.switchCategory
@@ -100,5 +115,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver() {
         print("Game Over")
+    }
+    
+    func updateScoreLabel() {
+        scoreLabel.text = "\(score)"
     }
 }
