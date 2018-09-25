@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     var colorSwitch: SKSpriteNode!
     
     override func didMove(to view: SKView) {
@@ -16,8 +16,17 @@ class GameScene: SKScene {
         layoutScene()
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        if contactMask == PhysicsCategories.ballCategory | PhysicsCategories.switchCategory {
+            print("Contact")
+        }
+    }
+    
     func setupPhysics()  {
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.0)
+        physicsWorld.contactDelegate = self
     }
     
     func layoutScene() {
