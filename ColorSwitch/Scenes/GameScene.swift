@@ -27,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var currentColorIndex: Int?
     let scoreLabel = SKLabelNode(text: "0")
     var score = 0
+    var gravity = -2.0
     
     override func didMove(to view: SKView) {
         setupPhysics()
@@ -46,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     run(SKAction.playSoundFileNamed("bling", waitForCompletion: false))
                     score += 1
                     updateScoreLabel()
+                    updateWorldGravity()
                     ball.run(SKAction.fadeOut(withDuration: 0.25)) {
                         ball.removeFromParent()
                         self.spawnBall()
@@ -57,8 +59,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func updateWorldGravity() {
+        gravity -= 0.1
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: gravity)
+    }
+    
     func setupPhysics()  {
-        physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.0)
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: gravity)
         physicsWorld.contactDelegate = self
     }
     
@@ -115,13 +122,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
-        UserDefaults.standard.set(score, forKey: "RecentScore")
-        if score > UserDefaults.standard.integer(forKey: "HighScore") {
-            UserDefaults.standard.set(score, forKey: "HighScore")
+        run(SKAction.playSoundFileNamed("game_over", waitForCompletion: true)) {
+            UserDefaults.standard.set(self.score, forKey: "RecentScore")
+            if self.score > UserDefaults.standard.integer(forKey: "HighScore") {
+                UserDefaults.standard.set(self.score, forKey: "HighScore")
+            }
+            let menuScene = MenuScene(size: self.view!.bounds.size)
+            self.view!.presentScene(menuScene)
         }
-        
-        let menuScene = MenuScene(size: view!.bounds.size)
-        view!.presentScene(menuScene)
     }
     
     func updateScoreLabel() {
