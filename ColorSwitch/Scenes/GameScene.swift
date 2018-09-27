@@ -17,25 +17,22 @@ enum PlayColors {
     ]
 }
 
-enum SwitchState: Int {
-    case red, yellow, green, blue
-}
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var colorSwitch: SKSpriteNode!
-    var switchState = SwitchState.red
+    var colorSwitch: ColorSwitch!
     var currentColorIndex: Int?
     let scoreLabel = SKLabelNode(text: "0")
     var score = 0
     var gravity = -2.0
     
     override func didMove(to view: SKView) {
+        colorSwitch = ColorSwitch(frame: frame)
+        addChild(colorSwitch.spriteNode)
         setupPhysics()
         layoutScene()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        turnWheel()
+        colorSwitch.turnWheel()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -43,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if contactMask == PhysicsCategories.ballCategory | PhysicsCategories.switchCategory {
             if let ball = contact.bodyA.node?.name == "Ball" ? contact.bodyA.node as? SKSpriteNode : contact.bodyB.node as? SKSpriteNode {
-                if currentColorIndex == switchState.rawValue {
+                if currentColorIndex ==  colorSwitch.state.rawValue {
                     run(SKAction.playSoundFileNamed("bling", waitForCompletion: false))
                     score += 1
                     updateScoreLabel()
@@ -72,7 +69,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func layoutScene() {
         backgroundColor = LayoutProperties.backgroundColor
         drawScoreLabel()
-        drawColorSwitchControl()
         spawnBall()
     }
     
@@ -83,17 +79,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY)
         scoreLabel.zPosition = ZPositions.label
         addChild(scoreLabel)
-    }
-    
-    func drawColorSwitchControl() {
-        colorSwitch = SKSpriteNode(imageNamed: "ColorCircle")
-        colorSwitch.size = CGSize(width: frame.size.width / 3, height: frame.size.width / 3)
-        colorSwitch.position = CGPoint(x: frame.midX, y: frame.minY + colorSwitch.size.height)
-        colorSwitch.zPosition = ZPositions.colorSwitch
-        colorSwitch.physicsBody = SKPhysicsBody(circleOfRadius: colorSwitch.size.width / 2)
-        colorSwitch.physicsBody?.categoryBitMask = PhysicsCategories.switchCategory
-        colorSwitch.physicsBody?.isDynamic = false
-        addChild(colorSwitch)
     }
     
     func spawnBall() {
@@ -109,16 +94,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.contactTestBitMask = PhysicsCategories.switchCategory
         ball.physicsBody?.collisionBitMask = PhysicsCategories.none
         addChild(ball)
-    }
-    
-    func turnWheel() {
-        if let newState = SwitchState(rawValue: switchState.rawValue + 1) {
-            switchState = newState
-        } else {
-            switchState = .red
-        }
-        
-        colorSwitch.run(SKAction.rotate(byAngle: .pi/2, duration: 0.25))
     }
     
     func gameOver() {

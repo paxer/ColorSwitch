@@ -18,6 +18,8 @@
 		E9AC68742158F3290043A498 /* ColorSwitchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AC68732158F3290043A498 /* ColorSwitchTests.swift */; };
 		E9AC687F2158F32A0043A498 /* ColorSwitchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AC687E2158F32A0043A498 /* ColorSwitchUITests.swift */; };
 		E9AC68972159084D0043A498 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AC68962159084D0043A498 /* Settings.swift */; };
+		E9D47F96215B7A3400157B42 /* game_over.wav in Resources */ = {isa = PBXBuildFile; fileRef = E9D47F95215B7A3400157B42 /* game_over.wav */; };
+		E9D47F99215D950700157B42 /* ColorSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D47F98215D950700157B42 /* ColorSwitch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		E9AC687E2158F32A0043A498 /* ColorSwitchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwitchUITests.swift; sourceTree = "<group>"; };
 		E9AC68802158F32A0043A498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9AC68962159084D0043A498 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		E9D47F95215B7A3400157B42 /* game_over.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = game_over.wav; sourceTree = "<group>"; };
+		E9D47F98215D950700157B42 /* ColorSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwitch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 		E9AC68572158F3280043A498 /* ColorSwitch */ = {
 			isa = PBXGroup;
 			children = (
+				E9D47F97215D94DA00157B42 /* GameObjects */,
 				E9AC6895215902E90043A498 /* Assets */,
 				E9AC6894215902920043A498 /* Scenes */,
 				E9AC68932159027B0043A498 /* ViewControllers */,
@@ -153,12 +158,21 @@
 		E9AC6895215902E90043A498 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E9D47F95215B7A3400157B42 /* game_over.wav */,
 				E99B2D09215A43F4009950DB /* bling.wav */,
 				E9AC68622158F3280043A498 /* Main.storyboard */,
 				E9AC68652158F3290043A498 /* Assets.xcassets */,
 				E9AC68672158F3290043A498 /* LaunchScreen.storyboard */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		E9D47F97215D94DA00157B42 /* GameObjects */ = {
+			isa = PBXGroup;
+			children = (
+				E9D47F98215D950700157B42 /* ColorSwitch.swift */,
+			);
+			path = GameObjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +282,7 @@
 				E9AC68642158F3280043A498 /* Main.storyboard in Resources */,
 				E99B2D0A215A43F4009950DB /* bling.wav in Resources */,
 				E9AC68662158F3290043A498 /* Assets.xcassets in Resources */,
+				E9D47F96215B7A3400157B42 /* game_over.wav in Resources */,
 				E9AC68692158F3290043A498 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9AC685F2158F3280043A498 /* GameScene.swift in Sources */,
+				E9D47F99215D950700157B42 /* ColorSwitch.swift in Sources */,
 				E9AC68612158F3280043A498 /* GameViewController.swift in Sources */,
 				E9AC68972159084D0043A498 /* Settings.swift in Sources */,
 				E9AC68592158F3280043A498 /* AppDelegate.swift in Sources */,
@@ -473,6 +489,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X948P3BJQN;
 				INFOPLIST_FILE = ColorSwitch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -490,6 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X948P3BJQN;
 				INFOPLIST_FILE = ColorSwitch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
