@@ -17,7 +17,6 @@ class ColorSwitch {
     }
     
     init(frame: CGRect) {
-        //spriteNode.name = "ColorSwitch"
         spriteNode = SKSpriteNode(imageNamed: "ColorCircle")
         spriteNode.size = CGSize(width: frame.size.width / 3, height: frame.size.width / 3)
         spriteNode.position = CGPoint(x: frame.midX, y: frame.minY + spriteNode.size.height)

@@ -20,6 +20,7 @@
 		E9AC68972159084D0043A498 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AC68962159084D0043A498 /* Settings.swift */; };
 		E9D47F96215B7A3400157B42 /* game_over.wav in Resources */ = {isa = PBXBuildFile; fileRef = E9D47F95215B7A3400157B42 /* game_over.wav */; };
 		E9D47F99215D950700157B42 /* ColorSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D47F98215D950700157B42 /* ColorSwitch.swift */; };
+		E9D47F9B215D9D8C00157B42 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D47F9A215D9D8C00157B42 /* Ball.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		E9AC68962159084D0043A498 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		E9D47F95215B7A3400157B42 /* game_over.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = game_over.wav; sourceTree = "<group>"; };
 		E9D47F98215D950700157B42 /* ColorSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwitch.swift; sourceTree = "<group>"; };
+		E9D47F9A215D9D8C00157B42 /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				E9D47F98215D950700157B42 /* ColorSwitch.swift */,
+				E9D47F9A215D9D8C00157B42 /* Ball.swift */,
 			);
 			path = GameObjects;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				E9AC68612158F3280043A498 /* GameViewController.swift in Sources */,
 				E9AC68972159084D0043A498 /* Settings.swift in Sources */,
 				E9AC68592158F3280043A498 /* AppDelegate.swift in Sources */,
+				E9D47F9B215D9D8C00157B42 /* Ball.swift in Sources */,
 				E99B2D08215A3AF9009950DB /* MenuScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

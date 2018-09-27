@@ -8,15 +8,6 @@
 
 import SpriteKit
 
-enum PlayColors {
-    static let colors = [
-        UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
-        UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
-        UIColor(red: 46/255, green: 204/255, blue: 113/255, alpha: 1.0),
-        UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-    ]
-}
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var colorSwitch: ColorSwitch!
     var currentColorIndex: Int?
@@ -25,8 +16,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gravity = -2.0
     
     override func didMove(to view: SKView) {
-        colorSwitch = ColorSwitch(frame: frame)
-        addChild(colorSwitch.spriteNode)
         setupPhysics()
         layoutScene()
     }
@@ -40,20 +29,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if contactMask == PhysicsCategories.ballCategory | PhysicsCategories.switchCategory {
             if let ball = contact.bodyA.node?.name == "Ball" ? contact.bodyA.node as? SKSpriteNode : contact.bodyB.node as? SKSpriteNode {
-                if currentColorIndex ==  colorSwitch.state.rawValue {
-                    run(SKAction.playSoundFileNamed("bling", waitForCompletion: false))
-                    score += 1
-                    updateScoreLabel()
-                    updateWorldGravity()
-                    ball.run(SKAction.fadeOut(withDuration: 0.25)) {
-                        ball.removeFromParent()
-                        self.spawnBall()
-                    }
-                } else {
-                    gameOver()
-                }
+                detectColorMatch(ball: ball)
             }
         }
+    }
+    
+    func detectColorMatch(ball: SKSpriteNode) {
+        if currentColorIndex ==  colorSwitch.state.rawValue {
+            run(SKAction.playSoundFileNamed("bling", waitForCompletion: false))
+            score += 1
+            updateScoreLabel()
+            updateWorldGravity()
+            ball.run(SKAction.fadeOut(withDuration: 0.25)) {
+                ball.removeFromParent()
+                self.spawnBall()
+            }
+        } else {
+            gameOver()
+        }        
     }
     
     func updateWorldGravity() {
@@ -68,6 +61,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func layoutScene() {
         backgroundColor = LayoutProperties.backgroundColor
+        colorSwitch = ColorSwitch(frame: frame)
+        addChild(colorSwitch.spriteNode)
         drawScoreLabel()
         spawnBall()
     }
@@ -84,16 +79,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func spawnBall() {
         let randomColor = PlayColors.colors.randomElement()
         currentColorIndex = PlayColors.colors.firstIndex(of: randomColor!)
-        let ball = SKSpriteNode(texture: SKTexture(imageNamed: "ball"), color: randomColor!, size: CGSize(width: 30.0, height: 30.0))
-        ball.colorBlendFactor = 1
-        ball.name = "Ball"
-        ball.position = CGPoint(x: frame.midX, y: frame.maxY)
-        ball.zPosition = ZPositions.ball
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
-        ball.physicsBody?.categoryBitMask = PhysicsCategories.ballCategory
-        ball.physicsBody?.contactTestBitMask = PhysicsCategories.switchCategory
-        ball.physicsBody?.collisionBitMask = PhysicsCategories.none
-        addChild(ball)
+        let ball = Ball(frame: frame, color: randomColor!)
+        addChild(ball.spriteNode)
     }
     
     func gameOver() {
