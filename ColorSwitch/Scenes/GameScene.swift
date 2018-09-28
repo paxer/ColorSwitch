@@ -9,9 +9,9 @@
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var colorSwitch: ColorSwitch!
+    var colorSwitch: Switch!
     var currentColorIndex: Int?
-    let scoreLabel = SKLabelNode(text: "0")
+    var scoreLabel: ScoreLabel!
     var score = 0
     var gravity = -2.0
     
@@ -38,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if currentColorIndex ==  colorSwitch.state.rawValue {
             run(SKAction.playSoundFileNamed("bling", waitForCompletion: false))
             score += 1
-            updateScoreLabel()
+            scoreLabel.updateScore(score: score)
             updateWorldGravity()
             ball.run(SKAction.fadeOut(withDuration: 0.25)) {
                 ball.removeFromParent()
@@ -46,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         } else {
             gameOver()
-        }        
+        }
     }
     
     func updateWorldGravity() {
@@ -61,19 +61,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func layoutScene() {
         backgroundColor = LayoutProperties.backgroundColor
-        colorSwitch = ColorSwitch(frame: frame)
+        colorSwitch = Switch(frame: frame)
         addChild(colorSwitch.spriteNode)
-        drawScoreLabel()
+        scoreLabel = ScoreLabel(frame: frame)
+        addChild(scoreLabel.scoreLabelNode)
         spawnBall()
-    }
-    
-    func drawScoreLabel() {
-        scoreLabel.fontName = "AvenirNext-Bold"
-        scoreLabel.fontSize = 60.0
-        scoreLabel.fontColor = UIColor.white
-        scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY)
-        scoreLabel.zPosition = ZPositions.label
-        addChild(scoreLabel)
     }
     
     func spawnBall() {
@@ -92,9 +84,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let menuScene = MenuScene(size: self.view!.bounds.size)
             self.view!.presentScene(menuScene)
         }
-    }
-    
-    func updateScoreLabel() {
-        scoreLabel.text = "\(score)"
     }
 }

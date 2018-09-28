@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class ColorSwitch {
+class Switch {
     var spriteNode: SKSpriteNode!
     var state = State.red
 
