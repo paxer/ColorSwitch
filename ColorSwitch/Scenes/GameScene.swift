@@ -14,10 +14,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel: ScoreLabel!
     var score = 0
     var gravity = -2.0
+    var playBlingSound: SKAction?
     
     override func didMove(to view: SKView) {
         setupPhysics()
         layoutScene()
+        self.playBlingSound = SKAction.playSoundFileNamed("bling", waitForCompletion: false)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -36,7 +38,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func detectColorMatch(ball: SKSpriteNode) {
         if currentColorIndex ==  colorSwitch.state.rawValue {
-            run(SKAction.playSoundFileNamed("bling", waitForCompletion: false))
+            if let playBlingSound = self.playBlingSound {
+                run(playBlingSound)
+            }
             score += 1
             scoreLabel.updateScore(score: score)
             updateWorldGravity()
